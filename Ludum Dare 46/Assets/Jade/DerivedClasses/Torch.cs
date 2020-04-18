@@ -11,8 +11,8 @@ public class Torch : Burnable
     {
         BurnValue = 1;
         objType = BurnableType.Torch;
-        torchParticle.GetComponent<ParticleSystem>();
-        torchLight.GetComponent<Light>();
+        torchParticle = GetComponent<ParticleSystem>();
+        torchLight = GetComponent<Light>();
     }
     public override void UseObject(PlayerClass player)
     {
