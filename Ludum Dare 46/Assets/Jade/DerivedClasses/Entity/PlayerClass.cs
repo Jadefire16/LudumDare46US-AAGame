@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerClass : Entity
 {
     Vector3 input;
-
     protected override void Start()
     {
         base.Start();
@@ -49,4 +48,9 @@ public class PlayerClass : Entity
         burnable.UseObject(this);
     }
 
+    public int GetHealth()
+    {
+        int x = Health;
+        return x;
+    }
 }

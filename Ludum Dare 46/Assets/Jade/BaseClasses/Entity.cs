@@ -4,6 +4,7 @@
 public class Entity : MonoBehaviour, IDamageable
 {
     private int health = 3;
+    protected int maxHealth = 10;
     protected int speed = 2;
     protected Rigidbody rb;
 
@@ -21,6 +22,19 @@ public class Entity : MonoBehaviour, IDamageable
     protected virtual void Attack() { } // Used for enemies or players when they should attack
     protected virtual void Move(Vector3 dir) { } // Use this function to move enemies
     public void TakeDamage(int val) => Health -= val; // Take Damage can be called by using Entity.TakeDamage(amount); even on derived classes
-
-    protected int Health { get => health; set { health = value; if (health <= 0) { KillEntity(); } } } // use this and not the actual health variable
+    protected int Health
+    {
+        get => health;
+        set
+        {
+            health = value; 
+            if (health <= 0)
+            {
+                KillEntity();
+            }else if(health > maxHealth)
+            {
+                health = maxHealth;
+            }
+        }
+    } // use this and not the actual health variable
 }
