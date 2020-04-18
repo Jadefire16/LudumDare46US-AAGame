@@ -6,7 +6,13 @@ public class PlayerClass : Entity
 {
     Vector3 towards, sides;
     float x, z;
+    float jumpForce = 2.5f;
     public LayerMask groundLayer;
+
+    [SerializeField]
+    bool canJump = true;
+    [SerializeField]
+    bool isGrounded;
 
 
     protected override void Start()
@@ -17,6 +23,7 @@ public class PlayerClass : Entity
         towards.y = 0;
         towards = Vector3.Normalize(towards);
         sides = Quaternion.Euler(new Vector3(0, 90, 0)) * towards;
+        canJump = true;
     }
 
     private void Update() // quick movement 
@@ -24,12 +31,21 @@ public class PlayerClass : Entity
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetKeyDown(KeyCode.Space) && canJump) {
+            Jump();
+        }
+
     }
 
     private void FixedUpdate() // call movement every fixed update
     {
         Move();
         GetGround();
+    }
+
+    void Jump() {
+        rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+        StartCoroutine(Wait());
     }
 
     protected void ResetPlayer() // used to reset players values when they die after level reload
@@ -63,7 +79,7 @@ public class PlayerClass : Entity
     void GetGround() {
         
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore)) {
-            Quaternion.Lerp(transform.rotation, hit.transform.rotation, 1);
+            transform.rotation = hit.transform.rotation;
         }
        
     }
@@ -78,4 +94,11 @@ public class PlayerClass : Entity
         int x = Health;
         return x;
     }
+
+    IEnumerator Wait() {
+        canJump = false;
+        yield return new WaitForSeconds(1);
+        canJump = true;
+    }
+
 }
