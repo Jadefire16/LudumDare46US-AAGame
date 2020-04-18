@@ -9,7 +9,7 @@ public class PlayerClass : Entity
     protected override void Start()
     {
         base.Start();
-        rb.isKinematic = true;
+        rb.isKinematic = false;
     }
 
     private void Update()
