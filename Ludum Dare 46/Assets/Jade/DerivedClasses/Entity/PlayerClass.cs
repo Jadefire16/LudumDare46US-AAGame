@@ -6,13 +6,10 @@ public class PlayerClass : Entity
 {
     Vector3 towards, sides;
     float x, z;
-    float jumpForce = 2.5f;
+    readonly float jumpForce = 2.5f;
     public LayerMask groundLayer;
 
-    [SerializeField]
     bool canJump = true;
-    [SerializeField]
-    bool isGrounded;
 
 
     protected override void Start()
