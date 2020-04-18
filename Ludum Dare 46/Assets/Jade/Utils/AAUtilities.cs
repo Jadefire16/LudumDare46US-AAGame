@@ -23,5 +23,12 @@ namespace Utils
             Vector3 vec = cam.ScreenToWorldPoint(Input.mousePosition);
             return vec;
         }
+        public static bool GetRandNum(int min, int max)
+        {
+            int targetVal = min + max / 2;
+            int value = Random.Range(min, max);
+            bool x = value > targetVal;
+            return x;
+        }
     }
 }

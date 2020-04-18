@@ -11,14 +11,15 @@ public class Torch : Burnable
     {
         BurnValue = 1;
         objType = BurnableType.Torch;
-        torchParticle = GetComponent<ParticleSystem>();
-        torchLight = GetComponent<Light>();
+        torchParticle = GetComponentInChildren<ParticleSystem>();
+        torchLight = GetComponentInChildren<Light>();
+        isActive = Utils.AAUtilities.GetRandNum(0, 101);
     }
     public override void UseObject(PlayerClass player)
     {
         if (isActive)
         {
-            player.TakeDamage(-BurnValue);       
+            player.TakeDamage(-BurnValue);
         }
         else
         {
