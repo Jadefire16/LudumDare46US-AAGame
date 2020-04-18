@@ -6,8 +6,12 @@ public class PlayerClass : Entity
 {
     Vector3 towards, sides;
     float x, z;
-    readonly float jumpForce = 2.5f;
+    public float jumpForce = 2.5f, rayLength;
     public LayerMask groundLayer;
+
+    public GameObject fireball, origin, player;
+
+    public Fireball fireBall;
 
     bool canJump = true;
 
@@ -32,6 +36,10 @@ public class PlayerClass : Entity
             Jump();
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            Attack();
+        }
+
     }
 
     private void FixedUpdate() // call movement every fixed update
@@ -42,7 +50,7 @@ public class PlayerClass : Entity
 
     void Jump() {
         rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-        StartCoroutine(Wait());
+        StartCoroutine(Wait(1));
     }
 
     protected void ResetPlayer() // used to reset players values when they die after level reload
@@ -59,7 +67,9 @@ public class PlayerClass : Entity
 
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
     {
-        
+        Health--;
+        //add shooting
+        StartCoroutine(Wait(2));
     }
     protected void Move() // Moves player using rb on z and z axis (not y)
     {
@@ -92,9 +102,9 @@ public class PlayerClass : Entity
         return x;
     }
 
-    IEnumerator Wait() {
+    IEnumerator Wait(float sec) {
         canJump = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(sec);
         canJump = true;
     }
 
