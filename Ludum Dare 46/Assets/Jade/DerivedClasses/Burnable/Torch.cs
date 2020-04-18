@@ -13,7 +13,7 @@ public class Torch : Burnable
         objType = BurnableType.Torch;
         torchParticle = GetComponentInChildren<ParticleSystem>();
         torchLight = GetComponentInChildren<Light>();
-        isActive = Utils.AAUtilities.GetRandNum(0, 101);
+        isActive = Utils.AAUtilities.GetRandNumBool(0, 101);
     }
     public override void UseObject(PlayerClass player)
     {
