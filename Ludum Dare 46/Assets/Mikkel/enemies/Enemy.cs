@@ -136,7 +136,7 @@ public class Enemy : MonoBehaviour
         if (player !=null) {//Detection of Player/Entity
             Vector3 direction = player.transform.position - rb.transform.position;
             direction.y = 0;
-            rb.transform.position += direction.normalized * GetSpeed();
+            rb.transform.position += direction.normalized * GetSpeed() * Time.deltaTime * GetRun();
             //rotation
             direction.y = 0;
             Quaternion RotateTo = Quaternion.LookRotation(direction);

@@ -474,8 +474,8 @@ MonoBehaviour:
   rotSpeed: 0
   range: 0
   angle: 0
-  speed: 0
-  runSpeed: 0
+  speed: 1
+  runSpeed: 1
   detectionVal: 0
   rays: 0
   pfFFOV: {fileID: 3933434582285114037, guid: f0a588ac127f7a44c91cb3a88f3c791b, type: 3}
