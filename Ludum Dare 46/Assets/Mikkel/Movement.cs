@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils;
 
-public class Movement : MonoBehaviour
+public class Movement : PlayerClass
 {
 
-    public float speed;
 
     private Vector3 towards, sides;
 
-    private void Start() {
+    protected override void Start() {
+        base.Start();
+        speed = 5;
         towards = Camera.main.transform.forward;
         towards.y = 0;
         towards = Vector3.Normalize(towards);
