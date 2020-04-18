@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 84756146}
   - component: {fileID: 84756145}
   - component: {fileID: 84756144}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 438430713}
   - component: {fileID: 438430712}
   - component: {fileID: 438430711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 1043682855}
   - component: {fileID: 1043682854}
   - component: {fileID: 1043682853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307092750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.27, y: 0.88, z: -0.25}
+  m_LocalPosition: {x: -2.27, y: 0.23, z: -0.25}
   m_LocalScale: {x: 0.3099726, y: 0.3099726, z: 0.3099726}
   m_Children: []
   m_Father: {fileID: 0}
@@ -602,6 +602,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a5716e7b76a484c90b818323b52ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!54 &1307092756
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -803,7 +806,7 @@ GameObject:
   - component: {fileID: 1762185596}
   - component: {fileID: 1762185595}
   - component: {fileID: 1762185594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

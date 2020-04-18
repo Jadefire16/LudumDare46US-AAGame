@@ -6,6 +6,8 @@ public class PlayerClass : Entity
 {
     Vector3 towards, sides;
     float x, z;
+    public LayerMask groundLayer;
+
 
     protected override void Start()
     {
@@ -27,6 +29,7 @@ public class PlayerClass : Entity
     private void FixedUpdate() // call movement every fixed update
     {
         Move();
+        GetGround();
     }
 
     protected void ResetPlayer() // used to reset players values when they die after level reload
@@ -55,6 +58,14 @@ public class PlayerClass : Entity
         transform.forward = heading;
         transform.position += rightMove;
         transform.position += upMove;
+    }
+
+    void GetGround() {
+        
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore)) {
+            Quaternion.Lerp(transform.rotation, hit.transform.rotation, 1);
+        }
+       
     }
 
     private void Interact(Burnable burnable)
