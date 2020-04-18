@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     int playerMaxLives = 5;
     int playerDeaths = 0;
     Vector3 currentCheckpoint;
+    Difficulty gameDifficulty;
+    GameState gameState;
 
     public Vector3 CurrentCheckpoint { get => currentCheckpoint; set => currentCheckpoint = value; }
     public int PlayerMaxLives { get => playerMaxLives; }
@@ -18,20 +20,48 @@ public class GameManager : MonoBehaviour
         if (!instance)
             instance = this;
         DontDestroyOnLoad(this);
+
+        Initialize();
     }
 
     private void Start()
     {
-        Initialize();
+        
     }
 
     private void Initialize()
     {
         Debug.Log("This is where things would initialize");
+        gameState = GameState.Menu;
     }
 
     public void RestartLevel()
     {
         Debug.Log("This would restart level and set player to checkpoint");
     }
+
+    public Difficulty GameDifficulty
+    {
+        get => gameDifficulty;
+        set
+        {
+            if (gameState == GameState.Menu) gameDifficulty = value;
+            else { return; }
+        }
+    }
+}
+
+public enum Difficulty
+{
+    Easy = 1,
+    Normal = 2,
+    Hard = 3,
+    Nightmare = 4
+}
+
+public enum GameState
+{
+    Menu,
+    Paused,
+    Active
 }

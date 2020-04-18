@@ -42,4 +42,10 @@ public class PlayerClass : Entity
     {
         rb.MovePosition(rb.position + (dir * speed * Time.deltaTime));
     }
+
+    private void Interact(Burnable burnable)
+    {
+        
+    }
+
 }
