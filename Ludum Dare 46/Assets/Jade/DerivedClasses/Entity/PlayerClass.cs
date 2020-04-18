@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class PlayerClass : Entity
 {
-    Vector3 input;
+    Vector3 towards, sides;
+    float x, z;
+
     protected override void Start()
     {
         base.Start();
-        rb.isKinematic = false;
+        speed = 5;
+        towards = Camera.main.transform.forward;
+        towards.y = 0;
+        towards = Vector3.Normalize(towards);
+        sides = Quaternion.Euler(new Vector3(0, 90, 0)) * towards;
     }
 
     private void Update() // quick movement 
     {
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.z = Input.GetAxisRaw("Vertical");
+        x = Input.GetAxis("Horizontal");
+        z = Input.GetAxis("Vertical");
     }
 
     private void FixedUpdate() // call movement every fixed update
     {
-        Move(input);
+        Move();
     }
 
     protected void ResetPlayer() // used to reset players values when they die after level reload
@@ -38,9 +44,16 @@ public class PlayerClass : Entity
     {
         
     }
-    protected override void Move(Vector3 dir) // Moves player using rb on z and z axis (not y)
+    protected void Move() // Moves player using rb on z and z axis (not y)
     {
-        rb.MovePosition(rb.position + (dir * speed * Time.deltaTime));
+        Vector3 dir = new Vector3(x, 0, z);
+        Vector3 rightMove = sides * speed * Time.fixedDeltaTime * dir.x;
+        Vector3 upMove = towards * speed * Time.fixedDeltaTime * dir.z;
+
+        Vector3 heading = Vector3.Normalize(rightMove + upMove);
+        transform.forward = heading;
+        transform.position += rightMove;
+        transform.position += upMove;
     }
 
     private void Interact(Burnable burnable)
