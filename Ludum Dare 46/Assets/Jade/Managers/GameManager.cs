@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     Vector3 currentCheckpoint;
     Difficulty gameDifficulty;
     GameState gameState;
+    internal static float killLimitY = -50f;
 
     public Vector3 CurrentCheckpoint { get => currentCheckpoint; set => currentCheckpoint = value; }
     public int PlayerMaxLives { get => playerMaxLives; }
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
 
 public enum Difficulty
 {
+    VeryEasy = 0,
     Easy = 1,
     Normal = 2,
     Hard = 3,

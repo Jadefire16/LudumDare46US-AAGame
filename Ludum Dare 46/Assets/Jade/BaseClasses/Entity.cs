@@ -12,7 +12,10 @@ public class Entity : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody>();
     }
-
+    private void LateUpdate()
+    {
+        WithinBoundsCheck();
+    }
     protected virtual void KillEntity() // this yeets the Entity component, conviniently if you do this the player stops moving
     {
         Debug.Log("This is where the entity would die if you weren't dumb " + this.name);
@@ -27,14 +30,19 @@ public class Entity : MonoBehaviour, IDamageable
         get => health;
         set
         {
-            health = value; 
+            health = value;
             if (health <= 0)
             {
                 KillEntity();
-            }else if(health > maxHealth)
+            }
+            else if (health > maxHealth)
             {
                 health = maxHealth;
             }
         }
     } // use this and not the actual health variable
+    void WithinBoundsCheck()
+    {
+        if (transform.position.y < GameManager.killLimitY) { Destroy(this.gameObject); }
+    }
 }
