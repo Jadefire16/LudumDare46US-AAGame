@@ -21,12 +21,16 @@ public class Movement : PlayerClass
     private void Update() {
 
         if (Input.anyKey) {
+            rb.isKinematic = false;
             Move();
+        }
+        else if (!Input.anyKey) {
+            rb.isKinematic = true;
         }
 
     }
 
-    void Move() {
+    new void Move() {
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Vector3 rightMove = sides * speed * Time.deltaTime * Input.GetAxis("Horizontal");
         Vector3 upMove = towards * speed * Time.deltaTime * Input.GetAxis("Vertical");

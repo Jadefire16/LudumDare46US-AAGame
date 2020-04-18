@@ -19,8 +19,9 @@ public class PlayerClass : Entity
 
     private void Update() // quick movement 
     {
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
+
     }
 
     private void FixedUpdate() // call movement every fixed update
