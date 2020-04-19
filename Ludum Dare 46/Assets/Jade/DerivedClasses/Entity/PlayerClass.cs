@@ -9,9 +9,9 @@ public class PlayerClass : Entity
     public float jumpForce = 2.5f, rayLength;
     public LayerMask groundLayer;
 
-    public GameObject fireball, origin, player;
+    //public GameObject fireball, origin, player;
 
-    public Fireball fireBall;
+    //public Fireball fireBall;
 
     bool canJump = true;
 
@@ -37,7 +37,7 @@ public class PlayerClass : Entity
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            Attack();
+            //Attack();
         }
 
     }
@@ -86,9 +86,9 @@ public class PlayerClass : Entity
     void GetGround() {
         
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore)) {
-            // transform.rotation = hit.transform.rotation;
-            Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
-            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
+            transform.rotation = hit.transform.rotation;
+            //Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
         }
        
     }
