@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tront/Scenes/Game.unity
     guid: 8fba52420b2b70a41a90db4d2fcdade4
-  - enabled: 1
-    path: Assets/Tront/Scenes/Game2.unity
-    guid: d349baacc9a45e949b30c799d53064f5
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
