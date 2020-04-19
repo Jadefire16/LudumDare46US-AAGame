@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        LoadEntity(name, ID);
+        //LoadEntity(name, ID);
     }
 
     private void SaveEntity()
@@ -34,7 +34,7 @@ public class Entity : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
-        EventManager.instance.OnSaveGameEvent += SaveEntity;
+        //EventManager.instance.OnSaveGameEvent += SaveEntity;
     }
     private void LateUpdate()
     {
