@@ -13404,6 +13404,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2147483648
+  fire: []
+  fireLit: {fileID: 0}
+  fireUnlit: {fileID: 0}
+  fireVal: 0
 --- !u!54 &1984281715
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerClass : Entity
 {
@@ -8,12 +9,14 @@ public class PlayerClass : Entity
     float x, z;
     private float jumpForce = 4f;
     public LayerMask groundLayer;
+    
+    [Space]
+    [Header("Health")]
 
-    //public GameObject fireball, origin, player;
-
-    //public Fireball fireBall;
-
-    bool canJump = true;
+    public Image[] fire;
+    public Sprite fireLit, fireUnlit;
+    public int fireVal;
+    bool canMove = true, canJump = true;
 
 
     protected override void Start()
@@ -25,6 +28,7 @@ public class PlayerClass : Entity
         towards = Vector3.Normalize(towards);
         sides = Quaternion.Euler(new Vector3(0, 90, 0)) * towards;
         canJump = true;
+        canMove = true;
     }
 
     private void Update() // quick movement 
@@ -38,14 +42,41 @@ public class PlayerClass : Entity
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             //Attack();
+            Health++;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1)) {
+            //Attack();
+            Health--;
+        }
+
+
+        for (int i = 0; i < fire.Length; i++) {
+            if (i < Health) {
+                fire[i].sprite = fireLit;
+            } else {
+                fire[i].sprite = fireUnlit;
+            }
+
+            if (i < fireVal) {
+                fire[i].enabled = true;
+            } else {
+                fire[i].enabled = false;
+            }
+
+        }
+        if (Health <= 0) {
+            fire[0].sprite = fireUnlit;
         }
 
     }
 
     private void FixedUpdate() // call movement every fixed update
     {
+        if (canMove) {
         Move();
         GetGround();
+        }
     }
 
     void Jump() {
@@ -61,8 +92,10 @@ public class PlayerClass : Entity
 
     protected override void KillEntity()
     {
-        base.KillEntity(); // this will destroy Entity class, remove if you wanna just want to reset it
-        EventManager.instance.InvokePlayerDeath();
+        //base.KillEntity(); // this will destroy Entity class, remove if you wanna just want to reset it
+        //EventManager.instance.InvokePlayerDeath();
+        canMove = false;
+        canJump = false;
     }
 
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
