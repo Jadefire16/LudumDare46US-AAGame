@@ -11,7 +11,6 @@ public class StartEnemy : Enemy
 
     private void Start() {
         base.SetDetection();
-        base.SetDetectionVal(0.5f);
         base.SetRange(10);
         base.SetSpeed(1);
         base.SetRotSpeed(2.5f);

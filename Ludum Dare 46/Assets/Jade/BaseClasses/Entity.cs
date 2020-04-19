@@ -7,6 +7,10 @@ public class Entity : MonoBehaviour, IDamageable
     protected int maxHealth = 10;
     protected int speed = 2;
     protected Rigidbody rb;
+    private bool isAlive = true;
+
+    public bool IsAlive { get => isAlive; }
+
 
     protected virtual void Start()
     {
@@ -33,6 +37,7 @@ public class Entity : MonoBehaviour, IDamageable
             health = value;
             if (health <= 0)
             {
+                IsAlive1 = false;
                 KillEntity();
             }
             else if (health > maxHealth)
@@ -41,6 +46,7 @@ public class Entity : MonoBehaviour, IDamageable
             }
         }
     } // use this and not the actual health variable
+
     void WithinBoundsCheck()
     {
         if (transform.position.y < GameManager.killLimitY) { Destroy(this.gameObject); }

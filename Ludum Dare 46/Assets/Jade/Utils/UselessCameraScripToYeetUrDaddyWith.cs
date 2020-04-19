@@ -17,7 +17,7 @@ public class UselessCameraScripToYeetUrDaddyWith : MonoBehaviour
         t = transform;
         t.position = (target.position + offset);
         Obstruction = target;
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
     }
 

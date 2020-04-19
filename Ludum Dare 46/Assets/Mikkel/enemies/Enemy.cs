@@ -8,14 +8,15 @@ public class Enemy : MonoBehaviour
     public List<GameObject> path = new List<GameObject>();
     [Space]
     [Header("Variables")]
-    public int dmg, i = 0;
-    public float rotSpeed, range, angle, speed, runSpeed, detectionVal, rays;
+    public bool hostile;
+    public int damage, i = 0;
+    public float rotSpeed, range, angle, speed, runSpeed, rays;
 
     private FOV fOv;
 
     public GameObject pfFFOV, originPos, point;
 
-    public Rigidbody rb;
+    private Rigidbody rb;
 
     protected virtual void SetRays(int rays) {
         this.rays = rays;
@@ -29,14 +30,6 @@ public class Enemy : MonoBehaviour
         fOv = Instantiate(pfFFOV, null).GetComponent<FOV>();
     }
 
-    protected virtual void SetDetectionVal(float detectVal) {
-        this.detectionVal = detectVal;
-    }
-
-    protected virtual float GetDetectionVal() {
-        return detectionVal;
-    }
-
     protected virtual void SetRun(float runSpeed) {
         this.runSpeed = runSpeed;
 
@@ -46,12 +39,12 @@ public class Enemy : MonoBehaviour
         return runSpeed;
     }
 
-    protected virtual void SetDamage(int damage) {
-        this.dmg = damage;
+    protected virtual void SetDamage(int dmg) {
+        this.damage = dmg;
     }
 
     public float GetDamage() {
-        return dmg;
+        return damage;
     }
 
     protected virtual void SetRotSpeed(float rotSpeed) {
@@ -132,17 +125,41 @@ public class Enemy : MonoBehaviour
 
     public void Move() {
         GameObject player = Detection();
-        
-        if (player !=null) {//Detection of Player/Entity
-            Vector3 direction = player.transform.position - rb.transform.position;
-            direction.y = 0;
-            rb.transform.position += direction.normalized * GetSpeed() * Time.deltaTime * GetRun();
-            //rotation
-            direction.y = 0;
-            Quaternion RotateTo = Quaternion.LookRotation(direction);
-            rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, RotateTo, GetRotSpeed() * Time.deltaTime);
-        } else {
-            //Path
+
+        if (hostile) {
+            if (player != null) {//Detection of Player/Entity
+                Vector3 direction = player.transform.position - rb.transform.position;
+                direction.y = 0;
+                rb.transform.position += direction.normalized * GetSpeed() * Time.deltaTime * GetRun();
+                //rotation
+                direction.y = 0;
+                Quaternion RotateTo = Quaternion.LookRotation(direction);
+                rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, RotateTo, GetRotSpeed() * Time.deltaTime);
+            } else {
+                //Path
+                if (path.Count > 0) {
+                    point = path[i];
+
+                    Vector3 direction = point.transform.position - rb.transform.position;
+                    direction.y = 0;
+
+                    rb.transform.position += direction.normalized * GetSpeed() * Time.deltaTime;
+
+                    Quaternion RotateTo = Quaternion.LookRotation(direction);
+                    rb.transform.rotation = Quaternion.Lerp(rb.transform.rotation, RotateTo, GetRotSpeed() * Time.deltaTime);
+
+                    if (Vector3.Distance(rb.transform.position, point.transform.position) < 1) {
+                        i++;
+                        if (i > path.Count - 1) {
+                            i = 0;
+                        }
+                    }
+
+                }
+            }
+        }
+        if (!hostile) {
+
             if (path.Count > 0) {
                 point = path[i];
 
@@ -156,19 +173,26 @@ public class Enemy : MonoBehaviour
 
                 if (Vector3.Distance(rb.transform.position, point.transform.position) < 1) {
                     i++;
-                    if (i > path.Count -1) {
+                    if (i > path.Count - 1) {
                         i = 0;
                     }
                 }
 
             }
         }
-
-
-
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Entity")) {
 
+            if (other.GetComponent<Entity>()) {
+                other.GetComponent<Entity>().TakeDamage(damage);
+
+            } else if () {
+
+            }
+        }
+    }
 
 
 }
