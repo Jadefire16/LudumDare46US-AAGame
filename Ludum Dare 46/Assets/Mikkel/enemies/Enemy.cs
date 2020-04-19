@@ -14,7 +14,8 @@ public class Enemy : MonoBehaviour
 
     private FOV fOv;
 
-    public GameObject pfFFOV, originPos, point;
+    public GameObject pfFFOV, originPos;
+    private GameObject player, point;
 
     private Rigidbody rb;
 
@@ -182,14 +183,32 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void Start() {
+
+    }
+    private void Update() {
+        if (!player.GetComponent<Entity>().IsAlive) {
+            hostile = false;
+        }
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Entity")) {
 
             if (other.GetComponent<Entity>()) {
+                Debug.Log("Ouch");
                 other.GetComponent<Entity>().TakeDamage(damage);
+                if (this.hostile) {
+                    StartCoroutine(Wait());
+                }
             }
         }
     }
 
+    IEnumerator Wait() {
+        hostile = false;
+        yield return new WaitForSeconds(1f);
+        hostile = true;
+    }
 
 }
