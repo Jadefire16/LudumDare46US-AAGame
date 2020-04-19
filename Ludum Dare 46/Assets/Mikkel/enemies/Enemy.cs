@@ -187,9 +187,6 @@ public class Enemy : MonoBehaviour
 
             if (other.GetComponent<Entity>()) {
                 other.GetComponent<Entity>().TakeDamage(damage);
-
-            } else if () {
-
             }
         }
     }
