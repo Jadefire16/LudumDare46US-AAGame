@@ -43,7 +43,7 @@ public class CampFire : Burnable
         {
             fireLight.enabled = true;
             fireRend.sharedMaterial.EnableKeyword("_EMISSION");
-            if (fireParticle.isPaused)
+            if (fireParticle.isStopped)
             {
                 fireParticle.Play();
             }
@@ -54,7 +54,7 @@ public class CampFire : Burnable
             fireRend.material.DisableKeyword("_EMISSION");
             if (fireParticle.isPlaying)
             {
-                fireParticle.Pause();
+                fireParticle.Stop();
             }
         }
     }

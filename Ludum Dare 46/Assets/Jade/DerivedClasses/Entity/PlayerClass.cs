@@ -86,7 +86,9 @@ public class PlayerClass : Entity
     void GetGround() {
         
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore)) {
-            transform.rotation = hit.transform.rotation;
+            // transform.rotation = hit.transform.rotation;
+            Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
+            transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
         }
        
     }
