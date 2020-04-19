@@ -5,6 +5,8 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
     public event Action OnPlayerDeathEvent;
+    public event Action OnSaveGameEvent;
+
 
     private void Awake()
     {
@@ -13,5 +15,6 @@ public class EventManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    public void CallPlayerDeath() => OnPlayerDeathEvent?.Invoke();
+    public void InvokePlayerDeath() => OnPlayerDeathEvent?.Invoke();
+    public void InvokeSaveGame() => OnSaveGameEvent?.Invoke();
 }

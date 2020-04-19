@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Entity : MonoBehaviour, IDamageable
 {
+    public int ID = 0;
+    public new string name;
+
     private int health = 3;
     protected int maxHealth = 10;
     protected float speed = 2;
@@ -11,10 +15,26 @@ public class Entity : MonoBehaviour, IDamageable
 
     public bool IsAlive { get => isAlive; }
 
+    private void Awake()
+    {
+        LoadEntity(name, ID);
+    }
+
+    private void SaveEntity()
+    {
+        throw new NotImplementedException();
+    }
+
+    private bool LoadEntity(string name, int ID)
+    {
+        //Get key from save manager and load entity data
+        return false;
+    }
 
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
+        EventManager.instance.OnSaveGameEvent += SaveEntity;
     }
     private void LateUpdate()
     {

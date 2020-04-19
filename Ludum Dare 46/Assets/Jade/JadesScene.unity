@@ -844,19 +844,18 @@ MonoBehaviour:
   path:
   - {fileID: 1888958983}
   - {fileID: 1074940001}
-  dmg: 0
+  hostile: 1
+  damage: 0
   i: 0
   rotSpeed: 0
   range: 0
   angle: 0
   speed: 1
   runSpeed: 1
-  detectionVal: 0
   rays: 0
   pfFFOV: {fileID: 3933434582285114037, guid: f0a588ac127f7a44c91cb3a88f3c791b, type: 3}
   originPos: {fileID: 371094988}
   point: {fileID: 0}
-  rb: {fileID: 1103412898}
 --- !u!135 &1103412900
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class PlayerClass : Entity
     protected override void KillEntity()
     {
         base.KillEntity(); // this will destroy Entity class, remove if you wanna just want to reset it
-        EventManager.instance.CallPlayerDeath();
+        EventManager.instance.InvokePlayerDeath();
     }
 
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
