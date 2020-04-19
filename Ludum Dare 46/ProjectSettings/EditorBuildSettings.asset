@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tront/Scenes/Init.unity
     guid: c85ed02e9e7770d4aa222e9a10482a0d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Tront/Scenes/Game.unity
     guid: 8fba52420b2b70a41a90db4d2fcdade4
   - enabled: 1

@@ -27,11 +27,6 @@ public class AsyncSceneManager : MonoBehaviour
     {
 
     }
-
-
-
-
-
     IEnumerator LoadScene()
     {
         yield return null;
@@ -65,47 +60,10 @@ public class AsyncSceneManager : MonoBehaviour
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void LoadScene(string name)
     {
         FadeTransitionPanel.alpha = 1;
 
         StartCoroutine(LoadScene());
-
-
-        /*
-        if (name.Length > 0)
-        {
-            SceneManager.LoadSceneAsync(name, LoadSceneMode.Additive);
-        }
-        else
-        {
-
-            if (sceneName.Length > 0)
-            {
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-            }
-            else
-            {
-                Debug.LogWarning("Bro you forgot to add a level name somewhere fuckin what are you doin");
-            }
-        }
-*/
-
     }
 }

@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody body;
+    Light lightSource;
+    Vector3 inputVec = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody>();
+        lightSource = GetComponentInChildren<Light>();
     }
-
-    Vector3 inputVec = Vector3.zero;
     void Update()
     {
         inputVec.x = Input.GetAxisRaw("Horizontal");
@@ -28,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
             body.velocity = Vector3.up * 5f;
         }
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -38,6 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
         body.AddForce(velocity * 0.2f, ForceMode.VelocityChange);
 
-        body.AddForce(inputVec * 100f);
+        body.AddForce(inputVec * 0.7f, ForceMode.VelocityChange);
     }
 }
