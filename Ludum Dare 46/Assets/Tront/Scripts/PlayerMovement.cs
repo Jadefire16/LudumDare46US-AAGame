@@ -19,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.z = Input.GetAxisRaw("Vertical");
 
+        if (inputVec.magnitude > 1f)
+        {
+            inputVec.Normalize();
+        }
 
         inputVec = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * inputVec;
 
