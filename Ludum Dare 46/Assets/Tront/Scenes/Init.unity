@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -895,7 +895,7 @@ MonoBehaviour:
   FadeTransitionPanel: {fileID: 1637388332}
   text: {fileID: 1744384376}
   loadingbar: {fileID: 1732745431}
-  sceneName: Game
+  sceneName: Game2
 --- !u!4 &1678414579
 Transform:
   m_ObjectHideFlags: 0
@@ -1228,7 +1228,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Game
+          m_StringArgument: Game2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1900831724
