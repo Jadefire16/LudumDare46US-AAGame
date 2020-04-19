@@ -10,6 +10,8 @@ public class AsyncSceneManager : MonoBehaviour
 
     public CanvasGroup FadeTransitionPanel;
     public TextMeshProUGUI text;
+
+    public UnityEngine.UI.Image loadingbar;
     [SerializeField] string sceneName;
 
 
@@ -17,6 +19,7 @@ public class AsyncSceneManager : MonoBehaviour
     void Start()
     {
         FadeTransitionPanel.alpha = 0;
+        loadingbar.fillAmount = 0;
     }
 
     // Update is called once per frame
@@ -43,6 +46,7 @@ public class AsyncSceneManager : MonoBehaviour
         {
             //Output the current progress
             text.text = "Loading progress: " + (asyncOperation.progress * 100) + "%";
+            loadingbar.fillAmount = asyncOperation.progress;
             yield return new WaitForEndOfFrame();
 
             // Check if the load has finished
