@@ -5,7 +5,7 @@ public class Entity : MonoBehaviour, IDamageable
 {
     private int health = 3;
     protected int maxHealth = 10;
-    protected int speed = 2;
+    protected float speed = 2;
     protected Rigidbody rb;
 
     protected virtual void Start()
