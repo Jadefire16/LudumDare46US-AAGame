@@ -34,7 +34,7 @@ public class UselessCameraScripToYeetUrDaddyWith : MonoBehaviour
     private void CheckForObstruction()
     {
         float distance = (target.position - t.position).sqrMagnitude + 0.5f;
-        if (Physics.Raycast(t.position,target.position - t.position, out RaycastHit hit, distance))
+        if (Physics.Raycast(t.position,target.position - t.position, out RaycastHit hit, distance, collidableObjects ,QueryTriggerInteraction.Ignore))
         {
             if(hit.collider.tag != "Player" && hit.collider.tag != "Entity")
             {
