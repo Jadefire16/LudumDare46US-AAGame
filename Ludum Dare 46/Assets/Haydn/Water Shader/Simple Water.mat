@@ -22,14 +22,15 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - Vector1_1A99ADAA: 5
-    - Vector1_83BAC3AE: 0.1
+    - Vector1_83BAC3AE: 0.05
     - Vector1_90022C8: 7
-    - Vector1_99F38469: 0.5
-    - Vector1_C520A314: 28.95
-    - Vector1_CA82D43E: 1
+    - Vector1_99F38469: 0.25
+    - Vector1_BF2A6E3A: 0.87
+    - Vector1_C520A314: 35
+    - Vector1_CA82D43E: 0.7
     m_Colors:
-    - Color_84EF7500: {r: 0.2431373, g: 1.247059, b: 1.223529, a: 0}
-    - Color_96707E23: {r: 0.12677997, g: 0.6464638, b: 0.7264151, a: 0}
+    - Color_84EF7500: {r: 0.096698105, g: 0.5, b: 0.48655662, a: 0}
+    - Color_96707E23: {r: 0.045612313, g: 0.3421937, b: 0.38679248, a: 0}
 --- !u!114 &1909516079550298444
 MonoBehaviour:
   m_ObjectHideFlags: 11
