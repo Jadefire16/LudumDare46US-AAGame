@@ -37,7 +37,7 @@ public class Entity : MonoBehaviour, IDamageable
             health = value;
             if (health <= 0)
             {
-                IsAlive1 = false;
+                isAlive = false;
                 KillEntity();
             }
             else if (health > maxHealth)
