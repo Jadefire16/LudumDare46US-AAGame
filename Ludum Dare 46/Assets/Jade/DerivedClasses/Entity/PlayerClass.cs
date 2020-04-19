@@ -6,7 +6,7 @@ public class PlayerClass : Entity
 {
     Vector3 towards, sides;
     float x, z;
-    private float jumpForce = 2.5f, rayLength;
+    private float jumpForce = 4f;
     public LayerMask groundLayer;
 
     //public GameObject fireball, origin, player;
