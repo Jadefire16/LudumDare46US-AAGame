@@ -6,7 +6,7 @@ using UnityEngine;
 public class CampFire : Burnable
 {
     public Transform respawnPoint;
-
+    public MeshRenderer fireRend;
     public bool isActive = false;
     ParticleSystem fireParticle;
     Light fireLight;
@@ -16,13 +16,15 @@ public class CampFire : Burnable
         objType = BurnableType.Campfire;
         fireParticle = GetComponentInChildren<ParticleSystem>();
         fireLight = GetComponentInChildren<Light>();
+        if (!fireRend)
+            Debug.LogWarning("You need to assign the fire material in campfire");
     }
     public override void UseObject(PlayerClass player)
     {
         if (isActive)
         {
-            UseCampfire(); 
-            return; 
+            UseCampfire();
+            return;
         }
         player.TakeDamage(BurnValue);
         isActive = true;
@@ -40,6 +42,7 @@ public class CampFire : Burnable
         if (isActive)
         {
             fireLight.enabled = true;
+            fireRend.sharedMaterial.EnableKeyword("_EMISSION");
             if (fireParticle.isPaused)
             {
                 fireParticle.Play();
@@ -48,6 +51,7 @@ public class CampFire : Burnable
         else
         {
             fireLight.enabled = false;
+            fireRend.material.DisableKeyword("_EMISSION");
             if (fireParticle.isPlaying)
             {
                 fireParticle.Pause();
