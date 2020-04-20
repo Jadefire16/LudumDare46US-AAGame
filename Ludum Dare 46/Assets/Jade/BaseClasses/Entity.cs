@@ -6,24 +6,24 @@ public class Entity : MonoBehaviour, IDamageable
 {
     [Header("DefaultData")]
     public EntityData data;
-    [Space]
-    [Header("Entity Data Storage")]
-    public EntityDataStorage dataStorage;
+    EntityDataStorage dataStorage;
     [Space]
     [Space]
-    public LayerMask groundLayer;
+    public LayerMask groundLayer, waterLayer;
     [Space]
     [Space]
-    private int health = 3;
-    protected int maxHealth = 10;
-    protected float speed = 2;
+    private int health;
+    protected int maxHealth;
+    protected float speed;
     protected Rigidbody rb;
-    private bool isAlive = true;
 
+    private bool isAlive = true;
     public bool IsAlive { get => isAlive; }
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
+        dataStorage = new EntityDataStorage();
         LoadEntityData();
         EventManager.instance.OnSaveGameEvent += SaveEntityData;
     }
@@ -32,28 +32,26 @@ public class Entity : MonoBehaviour, IDamageable
     {
         SyncDataToEntity();
         SaveManager.instance.SaveEntity(dataStorage);
-        Debug.Log("Saved Entity " + dataStorage.GetKey());
     }
 
     protected virtual void DeleteEntityData()
     {
         SaveManager.instance.DeleteEntity(dataStorage);
-        Debug.Log("Deleted Entity " + dataStorage.GetKey());
     }
 
     protected virtual void LoadEntityData()
     {
-        if (SaveManager.instance.FindData(dataStorage.GetKey()) == false)
+        bool x = SaveManager.instance.HasData(dataStorage.GetKey());
+        if (x)
         {
             dataStorage.SetToEntityData(data);
-            SaveManager.instance.SaveEntity(dataStorage);
         }
-        else
+        else if(!x)
         {
             SaveManager.instance.LoadEntity(ref dataStorage);
-            SyncEntityToData();
         }
-        //SaveManager.instance.SaveEntity(dataStorage);
+        SyncEntityToData();
+        SaveManager.instance.SaveEntity(dataStorage);
     }
 
     protected virtual void SyncDataToEntity()
@@ -82,7 +80,7 @@ public class Entity : MonoBehaviour, IDamageable
     } // To use base class implementations in an overidden class you must use (in this functions case) base.KillEntity();
 
     protected virtual void Attack() { } // Used for enemies or players when they should attack
-    protected virtual void Move(Vector3 dir) { } // Use this function to move enemies
+    protected virtual void Move() { } // Use this function to move enemies
     public void TakeDamage(int val) => Health -= val; // Take Damage can be called by using Entity.TakeDamage(amount); even on derived classes
     protected int Health
     {
@@ -127,16 +125,21 @@ public class Entity : MonoBehaviour, IDamageable
         public Vector3 position;
         public Quaternion rotation;
 
+        public EntityDataStorage()
+        {
+            ID = 999;
+            this.eType = EntityType.Flicker;
+            this.name = "x";
+            this.health = 1;
+            this.maxHealth = 2;
+            this.speed = 0.7f;
+            this.position = Vector3.zero;
+            this.rotation = Quaternion.identity;
+        }
+
         public EntityDataStorage(int iD, EntityType eType, string name, int health, int maxHealth, float speed, Vector3 pos, Quaternion rot)
         {
-            ID = iD;
-            this.eType = eType;
-            this.name = name;
-            this.health = health;
-            this.maxHealth = maxHealth;
-            this.speed = speed;
-            this.position = pos;
-            this.rotation = rot;
+            SetDataToValue(ID, eType, name, health, maxHealth, speed, pos, rot);
         }
 
         public void SetDataToValue(int iD, EntityType eType, string name, int health, int maxHealth, float speed, Vector3 pos, Quaternion rot)
@@ -175,7 +178,7 @@ public class Entity : MonoBehaviour, IDamageable
         public string GetKey()
         {
             string key;
-            key = this.name + this.eType + this.ID;
+            key = name + eType + ID;
             return key;
         }
     }

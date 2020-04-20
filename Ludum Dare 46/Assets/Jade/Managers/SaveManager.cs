@@ -23,8 +23,9 @@ public class SaveManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public bool FindData(string key)
+    public bool HasData(string key)
     {
+        Debug.Log("Key " + key);
         bool x = PlayerPrefs.HasKey(key);
         return x;
     }
@@ -47,6 +48,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveEntity(Entity.EntityDataStorage entity)
     {
+        DeleteEntity(entity);
         string key = entity.GetKey();
         SaveData(key, entity.GetKey());
         SaveVector3(key + pos, entity.position);
@@ -54,7 +56,7 @@ public class SaveManager : MonoBehaviour
         SaveData(key + hp, entity.health);
         SaveData(key + speed, entity.speed);
         SaveData(key + maxHP, entity.maxHealth);
-        WriteChanges();
+        PlayerPrefs.Save();
     }
     public void DeleteEntity(Entity.EntityDataStorage entity)
     {
@@ -65,7 +67,7 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey(key + hp);
         PlayerPrefs.DeleteKey(key + speed);
         PlayerPrefs.DeleteKey(key + maxHP);
-        WriteChanges();
+        PlayerPrefs.Save();
     }
     public void LoadEntity(ref Entity.EntityDataStorage entity)
     {

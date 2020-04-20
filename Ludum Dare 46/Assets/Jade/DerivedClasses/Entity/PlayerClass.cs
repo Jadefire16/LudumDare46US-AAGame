@@ -5,51 +5,47 @@ using UnityEngine.UI;
 
 public class PlayerClass : Entity
 {
-    Vector3 towards, sides;
-    float x, z;
-    private float jumpForce = 4f;
-
-    [Space]
-    [Header("Health")]
-
+    private float jumpForce = 6f;
     public Image[] fire;
+
     public Sprite fireLit, fireUnlit;
     public int fireVal;
-    bool canMove = true, canJump = true;
-
+    bool canMove = true;
+    bool canJump = true;
+   [SerializeField] Vector3 inputVec = Vector3.zero;
 
     protected override void Start()
     {
         base.Start();
-        speed = 3.5f;
-        towards = Camera.main.transform.forward;
-        towards.y = 0;
-        towards = Vector3.Normalize(towards);
-        sides = Quaternion.Euler(new Vector3(0, 90, 0)) * towards;
         canJump = true;
-
     }
 
     private void Update() // quick movement 
     {
-        x = Input.GetAxisRaw("Horizontal");
-        z = Input.GetAxisRaw("Vertical");
+        inputVec.x = Input.GetAxisRaw("Horizontal");
+        inputVec.z = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (inputVec.magnitude >= 1f)
         {
-            Jump();
+            inputVec.Normalize();
+        }
+        inputVec = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0) * inputVec;
+
+        if (Input.GetButton("Jump"))
+        {
+            if (canJump)
+                Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            //Attack();
-            TakeDamage(1);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Health++;
+            SaveEntityData();
         }
 
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SaveManager.instance.YeetAllData();
+        }
 
         //for (int i = 0; i < fire.Length; i++)
         //{
@@ -83,7 +79,6 @@ public class PlayerClass : Entity
         if (canMove)
         {
             Move();
-            GetGround();
         }
     }
     protected override void SaveEntityData()
@@ -112,6 +107,7 @@ public class PlayerClass : Entity
     {
         canMove = false;
         canJump = false;
+        LoadEntityData();
     }
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
     {
@@ -122,39 +118,22 @@ public class PlayerClass : Entity
 
     void Jump()
     {
-        rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+        rb.velocity = Vector3.up * jumpForce;
         StartCoroutine(Wait(1));
     }
 
-    protected void ResetPlayer() // kinda useless keeping it just in case
+    protected override void Move() // Moves player using rb on z and z axis (not y)
     {
-    
+        Vector3 velocity = -rb.velocity;
+        velocity.y = 0;
+
+        rb.AddForce(velocity * 0.2f, ForceMode.VelocityChange);
+
+        rb.AddForce(inputVec * speed, ForceMode.VelocityChange);
+
+        Debug.Log("Called");
     }
 
-
-    protected void Move() // Moves player using rb on z and z axis (not y)
-    {
-        Vector3 dir = new Vector3(x, 0, z);
-        Vector3 rightMove = sides * speed * Time.fixedDeltaTime * dir.x;
-        Vector3 upMove = towards * speed * Time.fixedDeltaTime * dir.z;
-
-        Vector3 heading = Vector3.Normalize(rightMove + upMove);
-        transform.forward = heading;
-        transform.position += rightMove;
-        transform.position += upMove;
-    }
-
-    void GetGround()
-    {
-
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore))
-        {
-            transform.rotation = hit.transform.rotation;
-            //Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
-        }
-
-    }
 
     private void Interact(Burnable burnable)
     {
