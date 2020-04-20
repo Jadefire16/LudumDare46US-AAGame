@@ -37,41 +37,31 @@ public class PlayerClass : Entity
                 Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            SaveEntityData();
+
+        if (Input.GetKeyDown(KeyCode.J)) {
+            TakeDamage(-1);
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SaveManager.instance.YeetAllData();
+        if (Input.GetKeyDown(KeyCode.H)) {
+            TakeDamage(1);
         }
+        fireVal = maxHealth;
+        for (int i = 0; i < fire.Length; i++) {
+            if (i < this.GetHealth()) {
+                fire[i].sprite = fireLit;
+            } else {
+                fire[i].sprite = fireUnlit;
+            }
 
-        //for (int i = 0; i < fire.Length; i++)
-        //{
-        //    if (i < Health)
-        //    {
-        //        fire[i].sprite = fireLit;
-        //    }
-        //    else
-        //    {
-        //        fire[i].sprite = fireUnlit;
-        //    }
+            if (i < fireVal) {
+                fire[i].enabled = true;
+            } else {
+                fire[i].enabled = false;
+            }
 
-        //    if (i < fireVal)
-        //    {
-        //        fire[i].enabled = true;
-        //    }
-        //    else
-        //    {
-        //        fire[i].enabled = false;
-        //    }
-
-        //}
-        //if (Health <= 0)
-        //{
-        //    fire[0].sprite = fireUnlit;
-        //}
+        }
+        if (this.GetHealth() <= 0) {
+            fire[0].sprite = fireUnlit;
+        }
 
     }
     private void FixedUpdate() // call movement every fixed update
@@ -81,33 +71,11 @@ public class PlayerClass : Entity
             Move();
         }
     }
-    protected override void SaveEntityData()
-    {
-        base.SaveEntityData();
-    }
-
-    protected override void LoadEntityData()
-    {
-        base.LoadEntityData();
-    }
-    protected override void DeleteEntityData()
-    {
-        base.DeleteEntityData();
-    }
-
-    protected override void SyncDataToEntity()
-    {
-        base.SyncDataToEntity();
-    }
-    protected override void SyncEntityToData()
-    {
-        base.SyncEntityToData();
-    }
+   
     protected override void KillEntity()
     {
         canMove = false;
         canJump = false;
-        LoadEntityData();
     }
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
     {
@@ -124,6 +92,8 @@ public class PlayerClass : Entity
 
     protected override void Move() // Moves player using rb on z and z axis (not y)
     {
+        Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore);
+
         Vector3 velocity = -rb.velocity;
         velocity.y = 0;
 
@@ -131,6 +101,8 @@ public class PlayerClass : Entity
 
         rb.AddForce(inputVec * speed, ForceMode.VelocityChange);
 
+        transform.up = Vector3.Lerp(transform.up, hit.normal, 5 * Time.fixedDeltaTime);
+        Debug.DrawRay(Vector3.one, hit.normal * 5, Color.red);
         Debug.Log("Called");
     }
 
@@ -138,12 +110,6 @@ public class PlayerClass : Entity
     private void Interact(Burnable burnable)
     {
         burnable.UseObject(this);
-    }
-
-    public int GetHealth()
-    {
-        int x = Health;
-        return x;
     }
 
     IEnumerator Wait(float sec)
