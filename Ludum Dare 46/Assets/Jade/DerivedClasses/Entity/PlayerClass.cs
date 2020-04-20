@@ -7,7 +7,6 @@ public class PlayerClass : Entity
     Vector3 towards, sides;
     float x, z;
     private float jumpForce = 4f;
-    public LayerMask groundLayer;
 
     //public GameObject fireball, origin, player;
 
@@ -25,6 +24,30 @@ public class PlayerClass : Entity
         towards = Vector3.Normalize(towards);
         sides = Quaternion.Euler(new Vector3(0, 90, 0)) * towards;
         canJump = true;
+
+    }
+
+    protected override void SaveEntityData()
+    {
+        base.SaveEntityData();
+    }
+
+    protected override void LoadEntityData()
+    {
+        base.LoadEntityData();
+    }
+    protected override void DeleteEntityData()
+    {
+        base.DeleteEntityData();
+    }
+
+    protected override void SyncDataToEntity()
+    {
+        base.SyncDataToEntity();
+    }
+    protected override void SyncEntityToData()
+    {
+        base.SyncEntityToData();
     }
 
     private void Update() // quick movement 
@@ -32,12 +55,28 @@ public class PlayerClass : Entity
         x = Input.GetAxisRaw("Horizontal");
         z = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && canJump) {
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
             //Attack();
+            TakeDamage(1);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SaveEntityData();
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            DeleteEntityData();
+            SaveManager.instance.YeetAllData();
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            LoadEntityData();
         }
 
     }
@@ -48,7 +87,8 @@ public class PlayerClass : Entity
         GetGround();
     }
 
-    void Jump() {
+    void Jump()
+    {
         rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
         StartCoroutine(Wait(1));
     }
@@ -83,14 +123,16 @@ public class PlayerClass : Entity
         transform.position += upMove;
     }
 
-    void GetGround() {
-        
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore)) {
+    void GetGround()
+    {
+
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore))
+        {
             transform.rotation = hit.transform.rotation;
             //Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
             //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
         }
-       
+
     }
 
     private void Interact(Burnable burnable)
@@ -104,7 +146,8 @@ public class PlayerClass : Entity
         return x;
     }
 
-    IEnumerator Wait(float sec) {
+    IEnumerator Wait(float sec)
+    {
         canJump = false;
         yield return new WaitForSeconds(sec);
         canJump = true;
