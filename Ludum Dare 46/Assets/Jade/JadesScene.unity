@@ -709,6 +709,11 @@ PrefabInstance:
       propertyPath: dataStorage.health
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6093426062619945174, guid: 0e15e86eed85bae449f7940be01c05ad,
+        type: 3}
+      propertyPath: waterLayer.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e15e86eed85bae449f7940be01c05ad, type: 3}
 --- !u!1 &822783762
@@ -937,7 +942,7 @@ MonoBehaviour:
   speed: 1
   runSpeed: 1
   rays: 0
-  pfFFOV: {fileID: 3933434582285114037, guid: f0a588ac127f7a44c91cb3a88f3c791b, type: 3}
+  pfFFOV: {fileID: 3933434582285114037, guid: e2e030a8a1fa60045aa86c91067ec255, type: 3}
   originPos: {fileID: 371094988}
 --- !u!135 &1103412900
 SphereCollider:

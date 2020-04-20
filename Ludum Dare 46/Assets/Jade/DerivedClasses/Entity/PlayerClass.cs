@@ -153,8 +153,7 @@ public class PlayerClass : Entity
         {
             transform.rotation = hit.transform.rotation;
             //Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
-        
+            //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);       
         }
 
     }

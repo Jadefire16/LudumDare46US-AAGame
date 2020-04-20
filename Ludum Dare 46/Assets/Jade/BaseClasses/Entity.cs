@@ -32,13 +32,11 @@ public class Entity : MonoBehaviour, IDamageable
     {
         SyncDataToEntity();
         SaveManager.instance.SaveEntity(dataStorage);
-        Debug.Log("Saved Entity " + dataStorage.GetKey());
     }
 
     protected virtual void DeleteEntityData()
     {
         SaveManager.instance.DeleteEntity(dataStorage);
-        Debug.Log("Deleted Entity " + dataStorage.GetKey());
     }
 
     protected virtual void LoadEntityData()
