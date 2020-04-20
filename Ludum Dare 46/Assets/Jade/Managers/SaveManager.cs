@@ -79,9 +79,9 @@ public class SaveManager : MonoBehaviour
 
     public void SaveVector3(string key, Vector3 vec)
     {
-        SaveData(key + "x", vec.x);
-        SaveData(key + "y", vec.y);
-        SaveData(key + "z", vec.z);
+        SaveData(key + x, vec.x);
+        SaveData(key + y, vec.y);
+        SaveData(key + z, vec.z);
         WriteChanges();
     }
 
@@ -106,10 +106,10 @@ public class SaveManager : MonoBehaviour
     public Quaternion LoadQuaternion(string key)
     {
         Quaternion vec;
-        vec.x = LoadFloat(key + "x");
-        vec.y = LoadFloat(key + "y");
-        vec.z = LoadFloat(key + "z");
-        vec.w = LoadFloat(key + "w");
+        vec.x = LoadFloat(key + x);
+        vec.y = LoadFloat(key + y);
+        vec.z = LoadFloat(key + z);
+        vec.w = LoadFloat(key + w);
         return vec;
     }
 }

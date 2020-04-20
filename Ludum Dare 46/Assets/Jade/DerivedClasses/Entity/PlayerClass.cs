@@ -81,41 +81,41 @@ public class PlayerClass : Entity
         if (Input.GetKeyDown(KeyCode.P))
         {
             LoadEntityData();
-            Health++;
+            //Health++;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             //Attack();
-            Health--;
+            TakeDamage(1);
         }
 
 
-        for (int i = 0; i < fire.Length; i++)
-        {
-            if (i < Health)
-            {
-                fire[i].sprite = fireLit;
-            }
-            else
-            {
-                fire[i].sprite = fireUnlit;
-            }
+        //for (int i = 0; i < fire.Length; i++)
+        //{
+        //    if (i < Health)
+        //    {
+        //        fire[i].sprite = fireLit;
+        //    }
+        //    else
+        //    {
+        //        fire[i].sprite = fireUnlit;
+        //    }
 
-            if (i < fireVal)
-            {
-                fire[i].enabled = true;
-            }
-            else
-            {
-                fire[i].enabled = false;
-            }
+        //    if (i < fireVal)
+        //    {
+        //        fire[i].enabled = true;
+        //    }
+        //    else
+        //    {
+        //        fire[i].enabled = false;
+        //    }
 
-        }
-        if (Health <= 0)
-        {
-            fire[0].sprite = fireUnlit;
-        }
+        //}
+        //if (Health <= 0)
+        //{
+        //    fire[0].sprite = fireUnlit;
+        //}
 
     }
 

@@ -43,15 +43,17 @@ public class Entity : MonoBehaviour, IDamageable
 
     protected virtual void LoadEntityData()
     {
-        //if (SaveManager.instance.FindData(dataStorage.GetKey()) == false)
-        //{
-        //    dataStorage.SetToEntityData(data);
-        //    SaveManager.instance.SaveEntity(dataStorage);
-        //}
-        
+        if (SaveManager.instance.FindData(dataStorage.GetKey()) == false)
+        {
+            dataStorage.SetToEntityData(data);
+            SaveManager.instance.SaveEntity(dataStorage);
+        }
+        else
+        {
             SaveManager.instance.LoadEntity(ref dataStorage);
             SyncEntityToData();
-        
+        }
+        //SaveManager.instance.SaveEntity(dataStorage);
     }
 
     protected virtual void SyncDataToEntity()
@@ -67,12 +69,6 @@ public class Entity : MonoBehaviour, IDamageable
         transform.position = dataStorage.position;
         transform.rotation = dataStorage.rotation;
     }
-
-    //void SetStorageData()
-    //{
-    //    dataStorage.SetDataToDefaults(data.ID, data.eType, data.name, data.health, data.maxHealth, data.speed, data.position, data.rotation);
-    //    SaveEntityData();
-    //}
 
     private void LateUpdate()
     {
@@ -138,15 +134,15 @@ public class Entity : MonoBehaviour, IDamageable
         }
 
         public void SetDataToValue(int iD, EntityType eType, string name, int health, int maxHealth, float speed, Vector3 pos, Quaternion rot)
-        {            
-                this.ID = iD;
-                this.eType = eType;
-                this.name = name;
-                this.health = health;
-                this.maxHealth = maxHealth;
-                this.speed = speed;
-                this.position = pos;
-                this.rotation = rot;
+        {
+            this.ID = iD;
+            this.eType = eType;
+            this.name = name;
+            this.health = health;
+            this.maxHealth = maxHealth;
+            this.speed = speed;
+            this.position = pos;
+            this.rotation = rot;
         }
 
         public void SetDataToBaseValue(int health, int maxHealth, float speed, Vector3 pos, Quaternion rot)
