@@ -48,7 +48,7 @@ ExportedObj/
 *.pdb.meta
 *.mdb.meta
 *.wav.meta
-*.prefab.meta
+*.meta
 *.mat.meta
 *.png.meta
 
