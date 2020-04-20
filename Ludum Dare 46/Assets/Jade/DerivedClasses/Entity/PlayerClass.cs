@@ -41,17 +41,6 @@ public class PlayerClass : Entity
             Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            //Attack();
-            TakeDamage(1);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            TakeDamage(-1);
-        }
-
-
         for (int i = 0; i < fire.Length; i++)
         {
             if (i < Health)
