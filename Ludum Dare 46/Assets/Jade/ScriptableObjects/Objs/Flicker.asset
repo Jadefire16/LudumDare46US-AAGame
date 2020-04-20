@@ -17,6 +17,6 @@ MonoBehaviour:
   name: Player
   health: 3
   maxHealth: 10
-  speed: 5
+  speed: 0.7
   position: {x: 1, y: 1, z: 1}
   rotation: {x: 0, y: 0, z: 0, w: 0}

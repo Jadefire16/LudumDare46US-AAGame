@@ -50,6 +50,7 @@ ExportedObj/
 *.wav.meta
 *.prefab.meta
 *.mat.meta
+*.png.meta
 
 # Unity3D generated file on crash reports
 sysinfo.txt
