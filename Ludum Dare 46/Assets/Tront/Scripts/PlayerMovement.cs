@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         inputVec.x = Input.GetAxisRaw("Horizontal");
         inputVec.z = Input.GetAxisRaw("Vertical");
 
-        if (inputVec.magnitude > 1f)
+        if (inputVec.magnitude >= 1f)
         {
             inputVec.Normalize();
         }
@@ -38,13 +38,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-
         Vector3 velocity = -body.velocity;
         velocity.y = 0;
 
         body.AddForce(velocity * 0.2f, ForceMode.VelocityChange);
-
         body.AddForce(inputVec * 0.7f, ForceMode.VelocityChange);
     }
 }
