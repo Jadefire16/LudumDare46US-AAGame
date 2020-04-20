@@ -11,7 +11,7 @@ public class Entity : MonoBehaviour, IDamageable
     public EntityDataStorage dataStorage;
     [Space]
     [Space]
-    public LayerMask groundLayer;
+    public LayerMask groundLayer, waterLayer;
     [Space]
     [Space]
     private int health = 3;
@@ -24,8 +24,8 @@ public class Entity : MonoBehaviour, IDamageable
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
-        LoadEntityData();
-        EventManager.instance.OnSaveGameEvent += SaveEntityData;
+        //LoadEntityData();
+        //EventManager.instance.OnSaveGameEvent += SaveEntityData;
     }
 
     protected virtual void SaveEntityData()

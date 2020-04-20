@@ -7,7 +7,7 @@ public class PlayerClass : Entity
 {
     Vector3 towards, sides;
     float x, z;
-    private float jumpForce = 4f;
+    private float jumpForce = 6f;
 
     [Space]
     [Header("Health")]
@@ -27,6 +27,7 @@ public class PlayerClass : Entity
         towards = Vector3.Normalize(towards);
         sides = Quaternion.Euler(new Vector3(0, 90, 0)) * towards;
         canJump = true;
+        SaveEntityData();
 
     }
 
@@ -47,35 +48,35 @@ public class PlayerClass : Entity
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Health++;
+            TakeDamage(-1);
         }
 
 
-        //for (int i = 0; i < fire.Length; i++)
-        //{
-        //    if (i < Health)
-        //    {
-        //        fire[i].sprite = fireLit;
-        //    }
-        //    else
-        //    {
-        //        fire[i].sprite = fireUnlit;
-        //    }
+        for (int i = 0; i < fire.Length; i++)
+        {
+            if (i < Health)
+            {
+                fire[i].sprite = fireLit;
+            }
+            else
+            {
+                fire[i].sprite = fireUnlit;
+            }
 
-        //    if (i < fireVal)
-        //    {
-        //        fire[i].enabled = true;
-        //    }
-        //    else
-        //    {
-        //        fire[i].enabled = false;
-        //    }
+            if (i < fireVal)
+            {
+                fire[i].enabled = true;
+            }
+            else
+            {
+                fire[i].enabled = false;
+            }
 
-        //}
-        //if (Health <= 0)
-        //{
-        //    fire[0].sprite = fireUnlit;
-        //}
+        }
+        if (Health <= 0)
+        {
+            fire[0].sprite = fireUnlit;
+        }
 
     }
     private void FixedUpdate() // call movement every fixed update
@@ -83,7 +84,7 @@ public class PlayerClass : Entity
         if (canMove)
         {
             Move();
-            GetGround();
+            //GetGround();
         }
     }
     protected override void SaveEntityData()
@@ -112,6 +113,7 @@ public class PlayerClass : Entity
     {
         canMove = false;
         canJump = false;
+        LoadEntityData();
     }
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
     {
@@ -152,6 +154,7 @@ public class PlayerClass : Entity
             transform.rotation = hit.transform.rotation;
             //Quaternion desiredRot = Quaternion.LookRotation(hit.normal);
             //transform.rotation = Quaternion.Slerp(transform.rotation, desiredRot, Time.deltaTime * 5f);
+        
         }
 
     }
