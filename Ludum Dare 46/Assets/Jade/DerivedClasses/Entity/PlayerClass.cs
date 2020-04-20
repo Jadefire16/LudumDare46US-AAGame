@@ -92,6 +92,8 @@ public class PlayerClass : Entity
 
     protected override void Move() // Moves player using rb on z and z axis (not y)
     {
+        Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 10f, groundLayer, QueryTriggerInteraction.Ignore);
+
         Vector3 velocity = -rb.velocity;
         velocity.y = 0;
 
@@ -99,6 +101,8 @@ public class PlayerClass : Entity
 
         rb.AddForce(inputVec * speed, ForceMode.VelocityChange);
 
+        transform.up = Vector3.Lerp(transform.up, hit.normal, 5 * Time.fixedDeltaTime);
+        Debug.DrawRay(Vector3.one, hit.normal * 5, Color.red);
         Debug.Log("Called");
     }
 
