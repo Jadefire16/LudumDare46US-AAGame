@@ -37,16 +37,6 @@ public class PlayerClass : Entity
                 Jump();
         }
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            SaveEntityData();
-        }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SaveManager.instance.YeetAllData();
-        }
-
         //for (int i = 0; i < fire.Length; i++)
         //{
         //    if (i < Health)
@@ -81,33 +71,11 @@ public class PlayerClass : Entity
             Move();
         }
     }
-    protected override void SaveEntityData()
-    {
-        base.SaveEntityData();
-    }
-
-    protected override void LoadEntityData()
-    {
-        base.LoadEntityData();
-    }
-    protected override void DeleteEntityData()
-    {
-        base.DeleteEntityData();
-    }
-
-    protected override void SyncDataToEntity()
-    {
-        base.SyncDataToEntity();
-    }
-    protected override void SyncEntityToData()
-    {
-        base.SyncEntityToData();
-    }
+   
     protected override void KillEntity()
     {
         canMove = false;
         canJump = false;
-        LoadEntityData();
     }
     protected override void Attack() // pretty straight forward, make the player lose a life and attack
     {
@@ -138,12 +106,6 @@ public class PlayerClass : Entity
     private void Interact(Burnable burnable)
     {
         burnable.UseObject(this);
-    }
-
-    public int GetHealth()
-    {
-        int x = Health;
-        return x;
     }
 
     IEnumerator Wait(float sec)

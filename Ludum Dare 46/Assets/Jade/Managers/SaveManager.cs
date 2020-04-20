@@ -38,53 +38,20 @@ public class SaveManager : MonoBehaviour
 
     public void WriteChanges() => PlayerPrefs.Save();
 
-    public void SaveData(string key, int val) { PlayerPrefs.SetInt(key, val); WriteChanges(); }
-    public void SaveData(string key, float val) { PlayerPrefs.SetFloat(key, val); WriteChanges(); }
-    public void SaveData(string key, string val)  { PlayerPrefs.SetString(key, val); WriteChanges(); }
+    public void SaveData(string key, int val) { PlayerPrefs.SetInt(key, val); PlayerPrefs.Save(); }
+    public void SaveData(string key, float val) { PlayerPrefs.SetFloat(key, val); PlayerPrefs.Save(); }
+    public void SaveData(string key, string val)  { PlayerPrefs.SetString(key, val); PlayerPrefs.Save(); }
 
     public int LoadInt(string key) { return PlayerPrefs.GetInt(key); }
     public float LoadFloat(string key) { return PlayerPrefs.GetFloat(key); }
     public string LoadString(string key) { return PlayerPrefs.GetString(key); }
-
-    public void SaveEntity(Entity.EntityDataStorage entity)
-    {
-        DeleteEntity(entity);
-        string key = entity.GetKey();
-        SaveData(key, entity.GetKey());
-        SaveVector3(key + pos, entity.position);
-        SaveQuaternion(key + rot, entity.rotation);
-        SaveData(key + hp, entity.health);
-        SaveData(key + speed, entity.speed);
-        SaveData(key + maxHP, entity.maxHealth);
-        PlayerPrefs.Save();
-    }
-    public void DeleteEntity(Entity.EntityDataStorage entity)
-    {
-        string key = entity.GetKey();
-        PlayerPrefs.DeleteKey(key);
-        PlayerPrefs.DeleteKey(key + pos);
-        PlayerPrefs.DeleteKey(key + rot);
-        PlayerPrefs.DeleteKey(key + hp);
-        PlayerPrefs.DeleteKey(key + speed);
-        PlayerPrefs.DeleteKey(key + maxHP);
-        PlayerPrefs.Save();
-    }
-    public void LoadEntity(ref Entity.EntityDataStorage entity)
-    {
-        string key = entity.GetKey();
-        entity.position = LoadVector3(key + pos);
-        entity.rotation = LoadQuaternion(key + rot);
-        entity.health = LoadInt(key + hp);
-        entity.speed = LoadFloat(key + speed);
-        entity.maxHealth = LoadInt(key + maxHP);
-    }
 
     public void SaveVector3(string key, Vector3 vec)
     {
         SaveData(key + x, vec.x);
         SaveData(key + y, vec.y);
         SaveData(key + z, vec.z);
-        WriteChanges();
+        PlayerPrefs.Save();
     }
 
     public Vector3 LoadVector3(string key)
@@ -102,7 +69,7 @@ public class SaveManager : MonoBehaviour
         SaveData(key + y, vec.y);
         SaveData(key + z, vec.z);
         SaveData(key + w, vec.w);
-        WriteChanges();
+        PlayerPrefs.Save();
     }
 
     public Quaternion LoadQuaternion(string key)
