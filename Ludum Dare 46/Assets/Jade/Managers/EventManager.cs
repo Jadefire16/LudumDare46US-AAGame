@@ -10,7 +10,7 @@ public class EventManager : MonoBehaviour
 
     private void Awake()
     {
-        if (!instance)
+        if (instance == null)
             instance = this;
         DontDestroyOnLoad(this);
     }
