@@ -27,7 +27,7 @@ public class UselessCameraScripToYeetUrDaddyWith : MonoBehaviour
         Vector3 desiredPos = target.position + offset;
         Vector3 smoothPos = Vector3.Lerp(currentPos, desiredPos, smoothing * Time.fixedDeltaTime);
         t.position = smoothPos;
-
+        this.gameObject.transform.LookAt(target);
         CheckForObstruction();
     }
 

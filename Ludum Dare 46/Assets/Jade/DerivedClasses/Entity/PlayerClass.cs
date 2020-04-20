@@ -37,31 +37,31 @@ public class PlayerClass : Entity
                 Jump();
         }
 
-        //for (int i = 0; i < fire.Length; i++)
-        //{
-        //    if (i < Health)
-        //    {
-        //        fire[i].sprite = fireLit;
-        //    }
-        //    else
-        //    {
-        //        fire[i].sprite = fireUnlit;
-        //    }
 
-        //    if (i < fireVal)
-        //    {
-        //        fire[i].enabled = true;
-        //    }
-        //    else
-        //    {
-        //        fire[i].enabled = false;
-        //    }
+        if (Input.GetKeyDown(KeyCode.J)) {
+            TakeDamage(-1);
+        }
+        if (Input.GetKeyDown(KeyCode.H)) {
+            TakeDamage(1);
+        }
+        fireVal = maxHealth;
+        for (int i = 0; i < fire.Length; i++) {
+            if (i < this.GetHealth()) {
+                fire[i].sprite = fireLit;
+            } else {
+                fire[i].sprite = fireUnlit;
+            }
 
-        //}
-        //if (Health <= 0)
-        //{
-        //    fire[0].sprite = fireUnlit;
-        //}
+            if (i < fireVal) {
+                fire[i].enabled = true;
+            } else {
+                fire[i].enabled = false;
+            }
+
+        }
+        if (this.GetHealth() <= 0) {
+            fire[0].sprite = fireUnlit;
+        }
 
     }
     private void FixedUpdate() // call movement every fixed update

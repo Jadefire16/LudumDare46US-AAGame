@@ -6,7 +6,7 @@ public class MenuScript : MonoBehaviour
 {
 
     private Camera cam;
-    public GameObject gameUI, startBarrier;
+    public GameObject gameUI, startBarrier, MenuUI;
 
 
     private void Awake() {
@@ -22,6 +22,7 @@ public class MenuScript : MonoBehaviour
     public void OnStart() {
         gameUI.SetActive(true);
         Destroy(startBarrier.gameObject);
+        Destroy(MenuUI.gameObject);
     }
 
 }
