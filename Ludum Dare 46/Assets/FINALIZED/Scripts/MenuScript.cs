@@ -6,26 +6,22 @@ public class MenuScript : MonoBehaviour
 {
 
     private Camera cam;
-    private GameObject gameUI;
-    private GameObject StartBarrier;
+    public GameObject gameUI, startBarrier;
 
 
     private void Awake() {
         cam = Camera.main;
-        gameUI = GameObject.FindGameObjectWithTag("GameUI");
-        StartBarrier = GameObject.FindGameObjectWithTag("Barrier");
-        gameUI.SetActive(false);
-        StartBarrier.SetActive(true);
+        startBarrier.SetActive(true);
     }
 
     private void Start() {
-        cam.GetComponent<Animation>().Play("CameraStart");
+        cam.GetComponent<Animator>().Play("CameraStart");
+
     }
 
     public void OnStart() {
         gameUI.SetActive(true);
-        Destroy(StartBarrier.gameObject);
+        Destroy(startBarrier.gameObject);
     }
-
 
 }
