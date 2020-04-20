@@ -25,7 +25,7 @@ public class Entity : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody>();
         LoadEntityData();
-        //EventManager.instance.OnSaveGameEvent += SaveEntity;
+        EventManager.instance.OnSaveGameEvent += SaveEntityData;
     }
 
     protected virtual void SaveEntityData()
@@ -78,7 +78,7 @@ public class Entity : MonoBehaviour, IDamageable
     {
         DeleteEntityData();
         Debug.Log("Deleted " + data.name);
-        //Destroy(this);
+        Destroy(this.gameObject);
     } // To use base class implementations in an overidden class you must use (in this functions case) base.KillEntity();
 
     protected virtual void Attack() { } // Used for enemies or players when they should attack
@@ -106,6 +106,12 @@ public class Entity : MonoBehaviour, IDamageable
     {
         if (transform.position.y < GameManager.killLimitY) { Destroy(this.gameObject); }
     }
+
+    private void OnDestroy()
+    {
+        EventManager.instance.OnSaveGameEvent -= SaveEntityData;
+    }
+
 
     [System.Serializable]
     public class EntityDataStorage

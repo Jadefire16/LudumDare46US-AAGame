@@ -30,30 +30,6 @@ public class PlayerClass : Entity
 
     }
 
-    protected override void SaveEntityData()
-    {
-        base.SaveEntityData();
-    }
-
-    protected override void LoadEntityData()
-    {
-        base.LoadEntityData();
-    }
-    protected override void DeleteEntityData()
-    {
-        base.DeleteEntityData();
-    }
-
-    protected override void SyncDataToEntity()
-    {
-        base.SyncDataToEntity();
-    }
-    protected override void SyncEntityToData()
-    {
-        base.SyncEntityToData();
-        canMove = true;
-    }
-
     private void Update() // quick movement 
     {
         x = Input.GetAxisRaw("Horizontal");
@@ -69,25 +45,9 @@ public class PlayerClass : Entity
             //Attack();
             TakeDamage(1);
         }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            SaveEntityData();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            DeleteEntityData();
-            SaveManager.instance.YeetAllData();
-        }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            LoadEntityData();
-            //Health++;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            //Attack();
-            TakeDamage(1);
+            Health++;
         }
 
 
@@ -118,7 +78,6 @@ public class PlayerClass : Entity
         //}
 
     }
-
     private void FixedUpdate() // call movement every fixed update
     {
         if (canMove)
@@ -127,6 +86,39 @@ public class PlayerClass : Entity
             GetGround();
         }
     }
+    protected override void SaveEntityData()
+    {
+        base.SaveEntityData();
+    }
+
+    protected override void LoadEntityData()
+    {
+        base.LoadEntityData();
+    }
+    protected override void DeleteEntityData()
+    {
+        base.DeleteEntityData();
+    }
+
+    protected override void SyncDataToEntity()
+    {
+        base.SyncDataToEntity();
+    }
+    protected override void SyncEntityToData()
+    {
+        base.SyncEntityToData();
+    }
+    protected override void KillEntity()
+    {
+        canMove = false;
+        canJump = false;
+    }
+    protected override void Attack() // pretty straight forward, make the player lose a life and attack
+    {
+        Health--;
+        //add shooting
+        StartCoroutine(Wait(2));
+    }
 
     void Jump()
     {
@@ -134,26 +126,12 @@ public class PlayerClass : Entity
         StartCoroutine(Wait(1));
     }
 
-    protected void ResetPlayer() // used to reset players values when they die after level reload
+    protected void ResetPlayer() // kinda useless keeping it just in case
     {
-        transform.position = GameManager.instance.CurrentCheckpoint;
-        Health = GameManager.instance.PlayerMaxLives;
+    
     }
 
-    protected override void KillEntity()
-    {
-        //base.KillEntity(); // this will destroy Entity class, remove if you wanna just want to reset it
-        //EventManager.instance.InvokePlayerDeath();
-        canMove = false;
-        canJump = false;
-    }
 
-    protected override void Attack() // pretty straight forward, make the player lose a life and attack
-    {
-        Health--;
-        //add shooting
-        StartCoroutine(Wait(2));
-    }
     protected void Move() // Moves player using rb on z and z axis (not y)
     {
         Vector3 dir = new Vector3(x, 0, z);

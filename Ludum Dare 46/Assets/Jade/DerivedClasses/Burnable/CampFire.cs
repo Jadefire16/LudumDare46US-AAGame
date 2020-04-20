@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class CampFire : Burnable
 {
+    PlayerClass player;
     public Transform respawnPoint;
     public MeshRenderer fireRend;
     public bool isActive = false;
     ParticleSystem fireParticle;
     Light fireLight;
+    public bool playerIsWithinRange = false;
     private void Start() // Set burnable type assign burnable value
     {
         BurnValue = 1;
@@ -32,9 +34,13 @@ public class CampFire : Burnable
 
     private void UseCampfire()
     {
-        //save players info
-        //update checkpoint
-        GameManager.instance.CurrentCheckpoint = respawnPoint.position;
+        EventManager.instance.InvokeSaveGame();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && playerIsWithinRange)
+            UseObject(player);
     }
 
     private void FixedUpdate()
@@ -59,6 +65,20 @@ public class CampFire : Burnable
                 fireParticle.Stop();
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Entity") && other.gameObject.name == GameManager.playerName)
+        {
+            playerIsWithinRange = true;
+            player = other.gameObject.GetComponent<PlayerClass>();
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Entity") && other.gameObject.name == GameManager.playerName)
+            playerIsWithinRange = false;
     }
 
     public override void UseObject(PlayerClass player, ParticleSystem system, Vector3 pos)
